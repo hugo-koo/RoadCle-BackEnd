@@ -2,6 +2,7 @@ module.exports = {
   HOST: "localhost",
   USER: "root",
   PASSWORD: "yu1002",
+  /**数据库名 */
   DB: "roadcle",
   dialect: "mysql",
   pool: {
