@@ -21,6 +21,7 @@ db.sequelize.sync();
 /**引入路由 */
 require("./app/routes/test.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/record.routes")(app);
 
 // simple route test
 app.get("/", (req, res) => {
@@ -29,7 +30,6 @@ app.get("/", (req, res) => {
     status: 200
    });
 });
-
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8088;

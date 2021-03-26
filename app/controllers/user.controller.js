@@ -52,7 +52,7 @@ exports.findByOnline = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving."
       });
     });
 };
@@ -146,18 +146,6 @@ exports.deleteAll = (req, res) => {
     res.status(500).send({
       message:
         err.message || "Some error occurred while removing all tutorials."
-    });
-  });
-};
-
-// Find all published Users
-exports.findAllPublished = (req, res) => {
-  User.findAll({ where: { published: true } }).then(data => {
-    res.send(data);
-  }).catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while retrieving tutorials."
     });
   });
 };
