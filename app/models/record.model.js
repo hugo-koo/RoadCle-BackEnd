@@ -1,5 +1,5 @@
-const db = require("../models");
-const User = db.user;
+const db = require(".");
+const User = db.userInfo;
 module.exports = (sequelize, Sequelize) => {
     const Record = sequelize.define("t_record", {
         id: {

@@ -4,13 +4,16 @@ module.exports = app => {
     var router = require("express").Router();
 
     // Create a new User
-    router.post("/", users.create);
+    // router.post("/", users.create);
 
     // Retrieve all online Users 
     router.get("/online", users.findByOnline);
 
     // Retrieve Users by uuid
     router.get("/:uuid", users.findByUUID);
+
+    // Retrieve Users by name
+    router.get("/n/:uuid", users.findByName);
 
     // Retrieve a single User with tid
     router.get("/tid/:id", users.findOne);

@@ -22,6 +22,9 @@ db.sequelize.sync();
 require("./app/routes/test.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/record.routes")(app);
+require("./app/routes/mailAuth.routes")(app);
+require("./app/routes/token.routes")(app);
+require("./app/routes/pass.routes")(app);
 
 // simple route test
 app.get("/", (req, res) => {

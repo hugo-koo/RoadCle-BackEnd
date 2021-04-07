@@ -1,5 +1,5 @@
 const db = require("../models");
-const User = db.user;
+const User = db.userInfo;
 /**Op for operator */
 const Op = db.Sequelize.Op;
 
@@ -16,6 +16,7 @@ exports.create = (req, res) => {
 
   // Create a User
   const user = {
+    uuid: req.body.uuid,
     name: req.body.name,
     online: req.body.online ? req.body.online : 0,
     avatar: req.body.avatar ? req.body.avatar : '',
@@ -23,6 +24,7 @@ exports.create = (req, res) => {
     sex: req.body.sex ? req.body.sex : 1,
     birthdate: req.body.birthdate,
     remark: req.body.remark,
+    email: req.body.email,
     telephone: req.body.telephone,
     platform: req.body.platform,
   };
@@ -43,7 +45,7 @@ exports.create = (req, res) => {
 // Retrieve all Users from the database.
 exports.findByOnline = (req, res) => {
   const online = req.query.online;
-  var condition = online ? { online: { [Op.like]: `%${online}%` } } : 1; //online state likely only
+  var condition = online ? { online: { [Op.like]: `${online}` } } : 1; //online state likely only
 
   User.findAll({ where: condition })
     .then(data => {
@@ -60,7 +62,7 @@ exports.findByOnline = (req, res) => {
 // Retrieve all Users from the database.
 exports.findByUUID = (req, res) => {
   const uuid = req.params.uuid;
-  var condition = uuid ? { uuid: { [Op.like]: `%${uuid}%` } } : null; //uuid likely
+  var condition = uuid ? { uuid: { [Op.like]: `${uuid}` } } : null; //uuid likely
 
   User.findAll({ where: condition })
     .then(data => {
@@ -69,7 +71,23 @@ exports.findByUUID = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving tutorials."
+          err.message || "Some error occurred while retrieving."
+      });
+    });
+};
+
+exports.findByName = (req, res) => {
+  const name = req.params.uuid;
+  var condition = name ? { name: { [Op.like]: `${name}` } } : null; 
+
+  User.findAll({ where: condition })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving."
       });
     });
 };
