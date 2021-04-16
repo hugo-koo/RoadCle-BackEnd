@@ -1,23 +1,26 @@
 const db = require("../models");
 const Record = db.record;
+const { v4: uuidv4 } = require('uuid');
 /**Op for operator */
 const Op = db.Sequelize.Op;
 
 /**Create and Save a new Record */
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.rid) {
+  if (!req.body.user_uuid) {
     /**Response HTTP 400 Bad Request */
     res.status(400).send({
-      message: "Requiring the ID of record."
+      message: "Requiring the ID of User."
     });
     return;
   }
 
   /**Create a new Record */
   const record = {
-    user_uuid: req.body.user_uuid ? req.body.uuid : 2,
-    record_id: req.body.rid,
+    user_uuid: req.body.user_uuid ? req.body.user_uuid : 2,
+    record_id: req.body.rid ? req.body.rid : uuidv4(),
+    start_time: req.body.start_time,
+    end_time: req.body.end_time,
   };
 
   /**Save Record in the database persistently */
@@ -36,7 +39,7 @@ exports.create = (req, res) => {
 // Retrieve all Records from the database.
 exports.findByRid = (req, res) => {
   const rid = req.query.rid;
-  var condition = rid ? { rid: { [Op.like]: `%${rid}%` } } : 1; //online state likely only
+  var condition = rid ? { record_id: { [Op.like]: `${rid}` } } : 1; //online state likely only
 
   Record.findAll({ where: condition })
     .then(data => {
@@ -100,7 +103,7 @@ exports.update = (req, res) => {
     }
   }).catch(err => {
     res.status(500).send({
-      message: "Error updating Record with uuid=" + rid
+      message: "Error updating Record with " + rid
     });
   });
 };

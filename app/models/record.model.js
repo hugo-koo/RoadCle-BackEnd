@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.UUID,
             defaultValue: Sequelize.UUIDV4,
             // primaryKey: true,
-            unique: true,
+            unique: false,
             allowNull: false,
         },
         record_id: {
@@ -20,6 +20,16 @@ module.exports = (sequelize, Sequelize) => {
             unique: true,
             allowNull: true,
             defaultValue: '',
+        },
+        start_time: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            defaultValue: 0,
+        },
+        end_time: {
+            type: Sequelize.INTEGER,
+            allowNull: true,
+            defaultValue: 0,
         },
     });
     // User.hasMany(Record);

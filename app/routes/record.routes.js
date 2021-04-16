@@ -7,7 +7,7 @@ module.exports = app => {
     router.post("/", records.create); 
 
     // Retrieve all Records by rid
-    router.get("/rid", records.findByRid);
+    router.get("/", records.findByRid);
 
     // Retrieve Records by user uuid
     router.get("/:uuid", records.findByUUID);
@@ -15,8 +15,8 @@ module.exports = app => {
     // Retrieve a single Record with tid
     router.get("/tid/:id", records.findOne);
 
-    // Update a Record with uuid
-    router.put("/:uuid", records.update);
+    // Update a Record with rid
+    router.put("/:rid", records.update);
 
     // Delete a Record with rid
     router.delete("/:rid", records.delete);

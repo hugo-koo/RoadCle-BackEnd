@@ -11,24 +11,24 @@ const Op = db.Sequelize.Op;
 /**Get user's uuid & password */
 exports.authPswLogin = (req, res, next) => {
   const uuid = req.query.uuid;
-  const psw = req.query.pws;
-  var condition = uuid ? { uuid: { [Op.like]: `%${uuid}%` } } : null; //uuid likely
+  const psw = req.query.psw;
+  var condition = uuid ? { uuid: { [Op.like]: `${uuid}` } } : null; //uuid likely
 
   User.findAll({ where: condition })
     .then(data => {
       if (psw === data[0].password) {
-        console.log(uuid + 'login success');
+        console.log(uuid + ' login success');
         // tokenUtil.generateAccessToken(uuid);
         next();
       } else {
-        console.log(uuid + 'login error');
-        res.status(401);
+        console.log(uuid + ' login error');
+        res.status(401).end();
       }
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving ."
+          err.message || "Some error occurred while retrieving."
       });
     });
 }

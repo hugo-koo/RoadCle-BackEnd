@@ -66,7 +66,12 @@ exports.findByUUID = (req, res) => {
 
   User.findAll({ where: condition })
     .then(data => {
-      res.send(data);
+      if(data.length===0) {
+        res.status(404).send({
+          message: "User not found."
+        });
+      }
+      else res.send(data);
     })
     .catch(err => {
       res.status(500).send({
@@ -77,12 +82,14 @@ exports.findByUUID = (req, res) => {
 };
 
 exports.findByName = (req, res) => {
-  const name = req.params.uuid;
+  const name = req.params.name;
   var condition = name ? { name: { [Op.like]: `${name}` } } : null; 
+  var uuid = '';
 
   User.findAll({ where: condition })
     .then(data => {
-      res.send(data);
+      uuid = data[0].uuid;
+      res.send(uuid.toString());
     })
     .catch(err => {
       res.status(500).send({

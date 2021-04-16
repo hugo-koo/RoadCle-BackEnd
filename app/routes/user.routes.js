@@ -1,6 +1,6 @@
 module.exports = app => {
     const users = require("../controllers/user.controller.js");
-
+    const tokenUtil = require("../auth/tokenUtil");
     var router = require("express").Router();
 
     // Create a new User
@@ -10,10 +10,10 @@ module.exports = app => {
     router.get("/online", users.findByOnline);
 
     // Retrieve Users by uuid
-    router.get("/:uuid", users.findByUUID);
+    router.get("/:uuid", tokenUtil.authenticateToken, users.findByUUID);
 
-    // Retrieve Users by name
-    router.get("/n/:uuid", users.findByName);
+    // Retrieve User name by name
+    router.get("/n/:name", users.findByName);
 
     // Retrieve a single User with tid
     router.get("/tid/:id", users.findOne);

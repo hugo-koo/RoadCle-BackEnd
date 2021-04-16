@@ -4,7 +4,8 @@ module.exports = app => {
     const tokenUtil = require("../auth/tokenUtil");
     var router = require("express").Router();
     /**登录 */
-    router.get('/login', pswAuth.authPswLogin, tokenUtil.createToken);
-    router.post('/signup', pswAuth.authPswSignUp);
-    app.use('/u', router);
+    router.get('/pswlogin', pswAuth.authPswLogin, tokenUtil.createToken);
+    /**注册 */
+    router.post('/pswsignup', pswAuth.authPswSignUp);
+    app.use('/auth', router);
 };
